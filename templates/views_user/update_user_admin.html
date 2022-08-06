@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v4.2.0
+* @link https://coreui.io
+* Copyright (c) 2022 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+<!-- Breadcrumb-->
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+  <title>Admin Hotel Milenun Plaza</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <!-- Main styles for this application-->
+  <link href="../../public/static_admin/css/style.css" rel="stylesheet">
+  <link href="../../public/static_admin/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+  <!-- datatables -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.12.1/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.12.1/datatables.min.js"></script>
+
+</head>
+
+<body>
+  <!--section sidebar -->
+  <section class="sidebar  sidebar-fixed" id="sidebar">
+    <div class="sidebar-brand d-none d-md-flex">
+      <span class="sidebar-brand-full"><img src="../../public/images/logo_sin_fondo.png" alt="Milenium Plaza" width="146"
+        height="56"></span>
+      <span class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">Logo</span>
+    </div>
+    <ul class="sidebar-nav " data-coreui="navigation" data-simplebar="">
+
+      <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">Sistema</a>
+        <ul class="nav-group-items">
+          <li class="nav-item"><a class="nav-link" href="../../views_admin/usuarios_admin.html"><span class="nav-icon"> </span>Usuarios </a></li>
+
+        </ul>
+      </li>
+
+      <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">Hotel</a>
+        <ul class="nav-group-items">
+          <li class="nav-item"><a class="nav-link" href="../../views_admin/habitaciones_admin.html"><span class="nav-icon"> </span>Habitaciones</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="../../views_admin/reservas_admin.html"><span class="nav-icon"> </span>Reservas</a></li>
+        </ul>
+      </li>
+
+  </section>
+
+ 
+  <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+
+     <!--navbar-->
+    <header class="header header-sticky mb-4">
+      <div class="container-fluid">
+        <button class="header-toggler px-md-0 me-md-3" type="button"
+          onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          
+        </button>
+
+        <ul class="header-nav mr-3">
+          <form action="">
+            <div class="input-group" >
+              <input type="text" class="form-control form-control-sm " placeholder="Buscar" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <button class="bg-dark input-group-text " style="color: #fff;" id="basic-addon2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg></button>
+            </div>
+
+          </form>
+            
+         
+        </ul>
+
+        <ul class="header-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+              <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+            </svg></a></li>
+        </ul>
+
+        <ul class="header-nav ms-3 ">
+          <li class="nav-item dropdown mr-4"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
+              role="button" aria-haspopup="true" aria-expanded="false">
+              <div>user@email.com</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end pt-0">
+              <div class="dropdown-header bg-light py-2">
+                <div class="fw-semibold">Mi Cuenta</div>
+              </div><a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="#">
+           
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left me-2" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                </svg> Salir</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+      
+      <div class="header-divider"></div>
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb my-0 ms-2">
+            <li class="breadcrumb-item"><span>Usuarios</span></li>
+            <li class="breadcrumb-item active"><span>Editando Usuario XXXXXXXXXXXX</span></li>
+          </ol>
+        </nav>
+      </div>
+    </header>
+
+
+    <!-- section container -->
+
+    <div class="body flex-grow-1 px-3">
+      <div class="container-lg">
+
+        <div class="d-flex justify-content-center align-items-center">
+
+
+          <div class="card" style="width: 30rem;">
+              <div class="card-header text-center">
+                  <h3>
+                      EDICIÓN DE USUARIO
+                  </h3>
+              </div>
+              <div class="card-body">
+                  <div class="border p-2">
+                      <h5>
+                          Datos Personales
+                      </h5>
+                      <form>
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="username">Nombre de Usuario</label>
+                              <input type="text" id="username" name="username" class="form-control" />
+                          </div>
+
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="password">Contraseña</label>
+                              <input type="password" id="password" name="password" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="confirm_password">Verificar Contraseña</label>
+                              <input type="password" id="confirm_password" name="confirm_password"
+                                  class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="nombres">Nombres</label>
+                              <input type="text" id="nombres" name="nombres" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="apellidos">Apellidos</label>
+                              <input type="text" id="apellidos" name="apellidos" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="email">Correo Electronico</label>
+                              <input type="email" id="email" name="email" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="tel">Teléfono</label>
+                              <input type="tel" id="tel" name="tel" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="direccion">Dirección</label>
+                              <input type="text" id="direccion" name="direccion" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                              <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" />
+                          </div>
+
+                          <div class="form-outline mb-4">
+                              <label class="form-label" for="cedula">Cédula</label>
+                              <input type="number" id="cedula" name="cedula" class="form-control" />
+                          </div>
+                          <div class="text-center">
+                              <button type="button" class="btn btn-primary btn-block mb-4">Crear Cuenta</button>
+                          </div>
+
+                      </form>
+
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+        
+       
+      </div>
+    </div>
+    <footer class="footer">
+      <div><a href="#">Hotel Milenium Plaza </a><a href="https://coreui.io">Admin</a> © 2022
+        </div>
+      
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+  crossorigin="anonymous"></script>
+<!-- CoreUI and necessary plugins-->
+<script src="../../public/static_admin/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
+<script src="../../public/static_admin/vendors/simplebar/js/simplebar.min.js"></script>
+<!-- Plugins and scripts required by this view-->
+<script src="../../public/static_admin/vendors/chart.js/js/chart.min.js"></script>
+<script src="../../public/static_admin/vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
+<script src="../../public/static_admin/vendors/@coreui/utils/js/coreui-utils.js"></script>
+<script src="../../public/static_admin/js/main.js"></script>
+<script src="../../public/js/hotel.js"></script>
+
+</body>
+
+</html>

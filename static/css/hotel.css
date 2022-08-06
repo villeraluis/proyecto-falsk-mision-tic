@@ -1,0 +1,32 @@
+.nav-tranparent{
+    background-color: #fffffb00!important;
+   
+}
+.container-tranparent{
+    background-color: #fffffb00!important;
+   
+}
+.card-button:hover{
+
+    background-color: rgb(199, 205, 209);
+
+}
+
+.img_carrusel_custom img {
+    width: auto;
+    height: 725px;
+    max-height: 725px;
+  }
+
+/*Flecha para hacer la pagina hacia arriba*/
+.ir-arriba{
+    display:none;
+    background-repeat:no-repeat;
+    font-size:20px;
+    color:black;
+    cursor:pointer;
+    position:fixed;
+    bottom:10px;
+    right:10px;
+    z-index:2;
+  }
