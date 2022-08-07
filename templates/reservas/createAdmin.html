@@ -1,0 +1,83 @@
+{% extends 'layoutAdmin.html' %}
+
+{% block space %}
+
+      <li class="breadcrumb-item"><span>Hotel</span></li>
+      <li class="breadcrumb-item"><span>Reservas</span></li>
+      <li class="breadcrumb-item active"><span>Crear</span></li>
+   
+{% endblock %}
+
+
+{% block container %}
+<div class="body flex-grow-1 px-3">
+  <div class="container-lg">
+
+    <div class="card mb-4">
+        <div class="card-header"><strong>Creación de Nueva Reserva</strong></div>
+        <div class="card-body">
+
+            <form action="#" class="row ">
+
+                <div class="form-outline mb-4 col-12">
+                <label class="form-label" for="date_init">Usuario</label>
+                <input type="text" id="date_init" name="date_init" class="form-control"  required/>
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                    <label class="form-label" for="date_init">Fecha de Inicio</label>
+                    <input type="date" id="date_init" name="date_init" class="form-control"  required/>
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                    <label class="form-label" for="date_end">Fecha Fin</label>
+                    <input type="date" id="date_end" name="date_end" class="form-control"  required/>
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                    <label class="form-label" for="select_room">Selecionar Habitación</label>
+                    <select name="select_room" id="select_room" class="form-select">
+                        <option value="" >seleccione Una</option>
+                        <option value="" selected>201</option>
+                        <option value="">202</option>
+                        <option value="">203</option>
+                    </select>
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                    <label class="form-label" for="number_room">Datos de la habitación</label>
+
+                    <div class="card" style="width: 500px;">
+                        
+                        <div class="card-body">
+                          <h5 class="card-title">Número 201</h5>
+                          <p class="card-text"><b>Descripción: </b> Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                          
+                        </div>
+
+                        <img src="../public/images/img_wiews/habitacion1.jpg" class="card-img-top" alt="Habitacion1" width="146"
+                        height="300">
+                      </div>
+                
+                    
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Crear Reserva</button>
+                </div>
+
+            </form>
+
+            
+
+
+
+        </div>
+    </div>
+    
+   
+  </div>
+</div>
+
+
+{% endblock %}
