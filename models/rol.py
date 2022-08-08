@@ -9,6 +9,5 @@ class Rol(db.Model):
     description = db.Column(db.String(50), unique=True,nullable=False)
     users = db.relationship('User', backref='role')
 
-    def __init__(self, description):
-        self.description = description
+    
        

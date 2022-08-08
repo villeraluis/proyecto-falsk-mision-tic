@@ -1,15 +1,11 @@
 
-from werkzeug.security import (generate_password_hash, check_password_hash) 
+from werkzeug.security import (check_password_hash) 
+from flask_login import UserMixin
 from utils.db import db
 from models.client import Client
 from models.reservation import Reservation
 
-
-
-
-
-
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id_number = db.Column(db.String(20), primary_key=True)
     name = db.Column(db.String(50),nullable=False)
@@ -23,21 +19,15 @@ class User(db.Model):
     client = db.relationship('Client', backref='user', lazy=True ,uselist=False)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
     
-    
-    def set_password(self, password): 
-        self.password_hash = generate_password_hash(password) 
-        
+         
     def check_password(self, password): 
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.pasword, password)
    
-    def __init__(self, id_number,name,last_name, email,date_birth,user_name,pasword,role_id):
-        self.id_number = id_number
-        self.name = name
-        self.last_name = last_name
-        self.email = email
-        self.date_birth = date_birth
-        self.user_name = user_name
-        self.pasword= pasword
-        self.role_id = role_id
-        
-article_list = db.relationship('ArticleList', back_populates='user')  
+
+    def get_id(self):
+           return (self.id_number)  
+       
+    def is_admin(self):
+	      return self.role_id==0 or self.role_id==1
+
+

@@ -75,6 +75,24 @@
                                 
                             </div>
 
+                            <div class="form-outline mb-4 {%if formCli.address.errors %} has-error{% endif %}">
+                                {{ formCli.address.label(class='form-label') }} 
+                                {{ formCli.address(class='form-control', value='') }}
+                                {% for error in formCli.address.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                                
+                            </div>
+
+                            <div class="form-outline mb-4 {%if formCli.phone.errors %} has-error{% endif %}">
+                                {{ formCli.phone.label(class='form-label') }} 
+                                {{ formCli.phone(class='form-control', value='') }}
+                                {% for error in formCli.phone.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                                
+                            </div>
+
                             <div class="form-outline mb-4 {%if form.user_name.errors %} has-error{% endif %}">
                                 {{ form.user_name.label(class='form-label') }} 
                                 {{ form.user_name(class='form-control', value='') }}
@@ -101,6 +119,10 @@
                                 {% endfor %}
                                 
                             </div>
+
+                            
+
+                            
 
 
                             <div class="text-center">

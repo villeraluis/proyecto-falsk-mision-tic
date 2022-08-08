@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.reservation import Reservation
 from utils.db import db
-from forms.userValidatorForm import createUser
+from forms.userForm import UserForm
 
 reservas = Blueprint("reservas", __name__)
 

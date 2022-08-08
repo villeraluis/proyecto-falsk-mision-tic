@@ -14,21 +14,35 @@
 
             <div class="card" style="width: 30rem;">
                 <div class="card-body">
-                    <form>
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="username">Usuario</label>
-                            <input type="text" id="username" class="form-control"  required>
-                        </div>
+                    <form action="{{url_for('users.login_user')}}" method="post">
+                        {{ form.csrf_token }}
 
 
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="password">Contraseña</label>
-                            <input type="password" id="password" class="form-control"   required>
+                        <div class="form-outline mb-4 {%if form.user_name.errors %} has-error{% endif %}">
+                            {{ form.user_name.label(class='form-label') }} 
+                            {{ form.user_name(class='form-control', value='') }}
+                            {% for error in form.user_name.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
                             
                         </div>
 
+                        <div class="form-outline mb-4 {%if form.pasword.errors %} has-error{% endif %}">
+                            {{ form.pasword.label(class='form-label') }} 
+                            {{ form.pasword(class='form-control', value='') }}
+                            {% for error in form.pasword.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                            
+                        </div>
 
-                        <div class="row mb-4">
+                        <div>
+                            {{msj}}
+                        </div>
+                        
+
+
+                       <!--  <div class="row mb-4">
                             <div class="col d-flex justify-content-end">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="remenberme" checked />
@@ -41,16 +55,17 @@
                             </div>
 
                         </div>
-
+ -->
 
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-outline-dark btn-block mb-4">Ingresar</button>
+                            {{ form.submit(class='btn btn-outline-dark btn-block mb-4') }}
+                            
                         </div>
                             
                             
 
-                         <div class="text-center">
+                        <div class="text-center">
                             <p>No estoy Resgistrado? <a href="{{url_for('users.register_user')}}">Registrarse</a></p>
                         </div> 
                     </form>

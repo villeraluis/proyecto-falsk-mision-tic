@@ -1,39 +1,35 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.room import Room
 from utils.db import db
-from forms.userValidatorForm import createRoom
+from forms.roomForm import RoomForm
 
 habitaciones = Blueprint("habitaciones", __name__)
 
-@habitaciones.route('/')
+@habitaciones.route('/admin')
 def index():  
-    return render_template('viewsAdmin/index.html')
+    return render_template('habitaciones/indexAdmin.html')
 
 
-@habitaciones.route('/register_user',methods=['GET','POST'])
-def register_user():
-    form = createRoom()
+@habitaciones.route('/create_admin',methods=['GET','POST'])
+def create():
+    form = RoomForm()
     if form.validate_on_submit():
-        id_number=form.id_number.data
-        name=form.name.data
-        last_name=form.last_name.data
-        email=form.email.data
-        date_birth = form.date_birth.data
-        user_name=form.user_name.data
-        pasword=form.pasword.data
+        number=form.number.data
+        description=form.description.data
         
+        new_room = Room()
+        new_room.number=number
+        new_room.description=description
         
-        new_user = Room(id_number, name, last_name, email, date_birth, user_name, pasword)
-        
-        # save the object into the database
-        db.session.add(new_user)
+        db.session.add(new_room)
         db.session.commit()
 
-        flash('Cuenta Creada Correctamente!')
+        flash('Habitacion Creada Correctamente!')
 
         return redirect(url_for('users.index'))
                         
-    return render_template('auth/registerRoomForAdmin.html',form=form)
+    return render_template('habitaciones/create.html',form=form)
+
 
 @habitaciones.route('/users')
 def index_users():

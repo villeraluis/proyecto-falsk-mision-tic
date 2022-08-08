@@ -1,24 +1,57 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from models.client import Client
 from models.user import User
 from utils.db import db
-from forms.userValidatorForm import createUser
+from forms.userForm import UserForm,client
+from forms.loginForm import Login
+from werkzeug.security import (generate_password_hash) 
+from flask_login import login_user as login_flask, current_user, logout_user, login_required
+from app import login_manager
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+  
+  
+  
 users = Blueprint("users", __name__)
 
 
-
 @users.route('/')
-def index():  
+def index():
     return render_template('index.html')
 
-@users.route('/login')
+
+@users.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have successfully logged yourself out.')
+    return redirect(url_for('users.login_user'))
+
+
+@users.route('/login',methods=['GET','POST'])
 def login_user():
-    return render_template('auth/loginUser.html')
+    form = Login() 
+    if form.validate_on_submit():
+        user_name=form.user_name.data
+        pasword=form.pasword.data
+        
+        user=User.query.filter_by(user_name=user_name).first()
+        if user and user.check_password(pasword):
+            login_flask(user,remember=True)
+            return redirect(url_for('users.index'))
+        msj='Usuario o Contraseña incorrectos'
+        return render_template('auth/loginUser.html',form=form,msj=msj)
+        
+    return render_template('auth/loginUser.html',form=form)
+
 
 @users.route('/register',methods=['GET','POST'])
 def register_user():
-    form = createUser()
-    if form.validate_on_submit():
+    form = UserForm()
+    formCli=client()
+    if form.validate_on_submit() and formCli.validate_on_submit():
         id_number=form.id_number.data
         name=form.name.data
         last_name=form.last_name.data
@@ -27,70 +60,55 @@ def register_user():
         user_name=form.user_name.data
         pasword=form.pasword.data
         role_id=2
-
-        new_user = User(id_number, name, last_name, email, date_birth, user_name, pasword,role_id)
         
-        # save the object into the database
-        db.session.add(new_user)
-        db.session.commit()
+        if User.query.filter_by(user_name=user_name).first():
+            print ("el nombre de usuario ya se uso antes")
+        else:
+            new_user = User()
+            new_user.id_number=id_number
+            new_user.name=name
+            new_user.last_name=last_name
+            new_user.email=email
+            new_user.date_birth=date_birth
+            new_user.user_name=user_name
+            new_user.pasword= generate_password_hash(pasword)
+            new_user.role_id=role_id
 
+            # guardar datos en la tabla usuarios
+            db.session.add(new_user)
+            db.session.commit()
+            
+            #datos del cliente
+            address=formCli.address.data
+            phone=formCli.phone.data
+            user_id=id_number
+            
+            new_client = Client()
+            new_client.address=address
+            new_client.phone=phone
+            new_client.user_id=user_id
+            
+            
+            # guardar datos en la tabla clientes
+            db.session.add(new_client)
+            db.session.commit()
+            
+            login_flask(new_user, remember=True)
+        
+        
         flash('Cuenta Creada Correctamente!')
 
         return redirect(url_for('users.index'))
+            
+
+        
                         
-    return render_template('auth/registerUser.html',form=form)
+    return render_template('auth/registerUser.html',form=form,formCli=formCli)
 
 
-       
-@users.route('/new', methods=['POST'])
-def add_contact():
-    if request.method == 'POST':
-
-        # receive data from the form
-        fullname = request.form['fullname']
-        email = request.form['email']
-        phone = request.form['phone']
-
-        # create a new Contact object
-        new_contact = Contact(fullname, email, phone)
-
-        # save the object into the database
-        db.session.add(new_contact)
-        db.session.commit()
-
-        flash('Contact added successfully!')
-
-        return redirect(url_for('contacts.index'))
 
 
-@users.route("/update/<string:id>", methods=["GET", "POST"])
-def update(id):
-    # get contact by Id
-    print(id)
-    contact = Contact.query.get(id)
-
-    if request.method == "POST":
-        contact.fullname = request.form['fullname']
-        contact.email = request.form['email']
-        contact.phone = request.form['phone']
-
-        db.session.commit()
-
-        flash('Contact updated successfully!')
-
-        return redirect(url_for('contacts.index'))
-
-    return render_template("update.html", contact=contact)
 
 
-@users.route("/delete/<id>", methods=["GET"])
-def delete(id):
-    contact = Contact.query.get(id)
-    db.session.delete(contact)
-    db.session.commit()
-
-    flash('Contact deleted successfully!')
-
-    return redirect(url_for('contacts.index'))
 
 
