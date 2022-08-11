@@ -13,7 +13,7 @@ class UserForm(FlaskForm):
     submit = SubmitField(label=('Crear Cuenta'))
     
        
-class client(FlaskForm):
+class ClientForm(FlaskForm):
     address= StringField('Dirección',[validators.Length(min=7, max=50),validators.DataRequired()])
     phone= StringField('Telefono',[validators.Length(min=7, max=20),validators.DataRequired()])
     

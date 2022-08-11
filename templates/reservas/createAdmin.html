@@ -17,34 +17,48 @@
         <div class="card-header"><strong>Creación de Nueva Reserva</strong></div>
         <div class="card-body">
 
-            <form action="#" class="row ">
+            <form action="{{url_for('reservas.create_admin')}}" class="row " method="post">
 
-                <div class="form-outline mb-4 col-12">
-                <label class="form-label" for="date_init">Usuario</label>
-                <input type="text" id="date_init" name="date_init" class="form-control"  required/>
+                {{ form.csrf_token }}
+                
+                <div class="form-outline mb-4 {%if form.user_id.errors %} has-error{% endif %}">
+                    {{ form.user_id.label(class='form-label') }} 
+                    {{ form.user_id(class='form-control', value='') }}
+                    {% for error in form.user_id.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                    
                 </div>
 
-                <div class="form-outline mb-4 col-6">
-                    <label class="form-label" for="date_init">Fecha de Inicio</label>
-                    <input type="date" id="date_init" name="date_init" class="form-control"  required/>
+                <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_from.errors %} has-error{% endif %}">
+                    {{ form.date_from.label(class='form-label') }} 
+                    {{ form.date_from(class='form-control', value='') }}
+                    {% for error in form.date_from.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                    
                 </div>
 
-                <div class="form-outline mb-4 col-6">
-                    <label class="form-label" for="date_end">Fecha Fin</label>
-                    <input type="date" id="date_end" name="date_end" class="form-control"  required/>
+                <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_to.errors %} has-error{% endif %}">
+                    {{ form.date_to.label(class='form-label') }} 
+                    {{ form.date_to(class='form-control', value='') }}
+                    {% for error in form.date_to.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                    
                 </div>
 
-                <div class="form-outline mb-4 col-6">
-                    <label class="form-label" for="select_room">Selecionar Habitación</label>
-                    <select name="select_room" id="select_room" class="form-select">
-                        <option value="" >seleccione Una</option>
-                        <option value="" selected>201</option>
-                        <option value="">202</option>
-                        <option value="">203</option>
-                    </select>
+                <div class="form-outline mb-4 col-md-6 mb-4 {%if form.room_id.errors %} has-error{% endif %}">
+                    {{ form.room_id.label(class='form-label') }} 
+                    {{ form.room_id(class='form-control', value='') }}
+                    {% for error in form.room_id.errors %}
+                        <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+                    
                 </div>
 
-                <div class="form-outline mb-4 col-6">
+
+                <!-- <div class="form-outline mb-4 col-6">
                     <label class="form-label" for="number_room">Datos de la habitación</label>
 
                     <div class="card" style="width: 500px;">
@@ -60,10 +74,10 @@
                       </div>
                 
                     
-                </div>
+                </div> -->
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block mb-4">Crear Reserva</button>
+                    {{ form.submit(class='btn btn-outline-dark btn-block mb-4') }}
                 </div>
 
             </form>

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.client import Client
 from models.user import User
 from utils.db import db
-from forms.userForm import UserForm,client
+from forms.userForm import UserForm,ClientForm
 from forms.loginForm import Login
 from werkzeug.security import (generate_password_hash) 
 from flask_login import login_user as login_flask, current_user, logout_user, login_required
@@ -50,7 +50,7 @@ def login_user():
 @users.route('/register',methods=['GET','POST'])
 def register_user():
     form = UserForm()
-    formCli=client()
+    formCli=ClientForm()
     if form.validate_on_submit() and formCli.validate_on_submit():
         id_number=form.id_number.data
         name=form.name.data
@@ -93,7 +93,7 @@ def register_user():
             db.session.add(new_client)
             db.session.commit()
             
-            login_flask(new_user, remember=True)
+            #login_flask(new_user, remember=True)
         
         
         flash('Cuenta Creada Correctamente!')

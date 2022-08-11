@@ -1,0 +1,62 @@
+{% extends 'layoutAdmin.html' %}
+
+{% block space %}
+
+<li class="breadcrumb-item"><span>Hotel</span></li>
+<li class="breadcrumb-item"><span>Habitaciones</span></li>
+<li class="breadcrumb-item active"><span>Detalle Habitación xxx</span></li>
+
+{% endblock %}
+
+{% block container %}
+
+<div class="body flex-grow-1 px-3">
+  <div class="container-lg">
+    <div class="card mb-4">
+        <div class="card-header"><strong>Detalles de Habitación</strong></div>
+        <div class="card-body">
+
+                <div class="form-outline mb-4">
+                    <p class="card-text"><b>Número Habitación : </b><span>{{room.number}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Descripción : </b><span>{{room.description}}</span> </p>  
+                </div>
+
+              <!--   <div class="form-outline mb-4">
+                  <p class="card-text"><b>Estado : </b><span>Ocupada/Libre </span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Fecha proxima Reserva : </b><span>dd/mm/aaaa </span> </p>  
+                </div> -->
+
+              
+                <div class="text-center">
+                    <a href="{{url_for('habitaciones.index_admin')}}" class="btn btn-secondary btn-block mb-4 mx-2">Volver a Vista Principal</a>
+                    <a href="{{url_for('habitaciones.update',id=room.id)}}" class="btn btn-primary btn-block mb-4">Editar Habitación</a>
+                </div>
+
+            </form>
+
+            
+
+
+
+        </div>
+    </div>
+
+
+
+    
+   
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}

@@ -3,7 +3,8 @@
 {% block space %}
 
 <li class="breadcrumb-item"><span>Hotel</span></li>
-<li class="breadcrumb-item active"><span>Habitaciones</span></li>
+<li class="breadcrumb-item"><span>Habitaciones</span></li>
+<li class="breadcrumb-item active"><span>Actualizar</span></li>
 
 {% endblock %}
 
@@ -12,16 +13,16 @@
 <div class="body flex-grow-1 px-3">
   <div class="container-lg">
     <div class="card mb-4">
-        <div class="card-header"><strong>Creación de Nueva Habitación</strong></div>
+        <div class="card-header"><strong>Editar Habitaciones</strong></div>
         <div class="card-body">
 
-            <form action="{{url_for('habitaciones.create')}}" method="POST">
+            <form action="{{url_for('habitaciones.update',id=id)}}" method="POST">
 
               {{ form.csrf_token }}
 
               <div class="form-outline mb-4 {%if form.number.errors %} has-error{% endif %}">
                 {{ form.number.label(class='form-label') }} 
-                {{ form.number(class='form-control', value='') }}
+                {{ form.number(class='form-control')}}
                 {% for error in form.number.errors %}
                     <span class="help-block">{{ error }}</span>
                 {% endfor %}
@@ -31,7 +32,7 @@
 
               <div class="form-outline mb-4 {%if form.description.errors %} has-error{% endif %}">
                 {{ form.description.label(class='form-label') }} 
-                {{ form.description(class='form-control', value='') }}
+                {{ form.description(class='form-control') }}
                 {% for error in form.description.errors %}
                     <span class="help-block">{{ error }}</span>
                 {% endfor %}
@@ -40,7 +41,7 @@
 
 
               <div class="text-center">
-                   {{ form.submit(class='btn btn-outline-dark btn-block mb-4') }}
+                <button type="submit" class="btn btn-outline-dark btn-block mb-4">Actualizar Habitación</button>
               </div>
 
             </form>
@@ -54,3 +55,4 @@
 
 
 {% endblock %}
+

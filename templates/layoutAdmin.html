@@ -22,6 +22,10 @@
 
 <body>
 
+
+
+
+
   {% block body %}
 
   {% include 'partialsAdmin/_sidebar.html' %}
@@ -41,6 +45,21 @@
       </div>
 
     </header>
+
+    <div class="body flex-grow-1 px-3">
+      {% with mensajes = get_flashed_messages() %} {% if mensajes %}
+        {% for mensaje in mensajes %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{ mensaje }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+
+
 
 
     {% block container %}
@@ -72,8 +91,11 @@
   <script src="{{url_for('static', filename='static_admin/vendors/@coreui/utils/js/coreui-utils.js')}}"></script>
   <script src="{{url_for('static', filename='static_admin/js/main.js')}}"></script>
   <script src="{{url_for('static', filename='js/hotel_user.js')}}"></script>
+
+
+  {% block scriptExta %}
+
+  {% endblock%}
 </body>
-
-
 
 </html>

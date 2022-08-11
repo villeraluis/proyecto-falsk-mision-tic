@@ -19,18 +19,19 @@
           <thead>
             <tr>
               <th scope="col">Numero</th>
-              <th scope="col">Estado</th>
               <th scope="col">Proxima Reserva</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
+
+            {% for room in rooms %}
             <tr>
-              <th scope="row">201</th>
-              <td>Libre</td>
+              <th scope="row">{{room.number}}</th>
               <td>27/07/2022 - 29/07/2022</td>
               <td>
-                <a href="../habitaciones/show.html" class="btn btn-sm btn-primary" title="ver detalles">
+                <a href="{{url_for('habitaciones.show_admin',id=room.id)}}" class="btn btn-sm btn-primary"
+                  title="ver detalles">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
                     viewBox="0 0 16 16">
                     <path
@@ -38,7 +39,7 @@
                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                   </svg>
                 </a>
-                <a href="../habitaciones/uptade.html" class="btn btn-sm btn-success" title="editar">
+                <a href="{{url_for('habitaciones.update',id=room.id)}}" class="btn btn-sm btn-success" title="editar">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path
@@ -48,7 +49,7 @@
                   </svg>
                 </a>
 
-                <a href="#" class="btn btn-sm btn-info" title="Reservar">
+                <a href="{{url_for('reservas.create_admin',idh=room.id)}}" class="btn btn-sm btn-info" title="Reservar">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-calendar-date" viewBox="0 0 16 16">
                     <path
@@ -58,8 +59,9 @@
                   </svg>
                 </a>
 
-                <span role="button" class="btn btn-sm btn-danger" title="eliminar" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
+                <span role="button" class="btn btn-sm btn-danger btnDeleteHabitacion" title="eliminar"  data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                  data-number="{{room.number}}"  data-url="{{url_for('habitaciones.delete',id=room.id)}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                     viewBox="0 0 16 16">
                     <path
@@ -73,94 +75,11 @@
 
               </td>
             </tr>
-            <tr>
-              <th scope="row">202</th>
-              <td>Ocupada</td>
-              <td>27/07/2022 - 29/07/2022</td>
-              <td><a href="../habitaciones/show.html" class="btn btn-sm btn-primary" title="ver detalles">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                  </svg>
-                </a>
-                <a href="../habitaciones/uptade.html" class="btn btn-sm btn-success" title="editar">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path
-                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                  </svg>
-                </a>
-                <a href="#" class="btn btn-sm btn-info" title="Reservar">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-calendar-date" viewBox="0 0 16 16">
-                    <path
-                      d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
-                    <path
-                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                  </svg>
-                </a>
 
-                <span role="button" class="btn btn-sm btn-danger" title="eliminar" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                    <path fill-rule="evenodd"
-                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                  </svg>
-                </span>
-              </td>
-            </tr>
 
-            <tr>
-              <th scope="row">203</th>
-              <td>Libre</td>
-              <td></td>
-              <td><a href="../habitaciones/show.html" class="btn btn-sm btn-primary" title="ver detalles">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                  </svg>
-                </a>
-                <a href="../habitaciones/uptade.html" class="btn btn-sm btn-success" title="editar">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path
-                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                  </svg>
-                </a>
+            {%endfor%}
 
-                <a href="#" class="btn btn-sm btn-info" title="Reservar">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-calendar-date" viewBox="0 0 16 16">
-                    <path
-                      d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
-                    <path
-                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                  </svg>
-                </a>
 
-                <span role="button" class="btn btn-sm btn-danger" title="eliminar" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                    <path fill-rule="evenodd"
-                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                  </svg>
-                </span>
-              </td>
-            </tr>
 
           </tbody>
         </table>
@@ -168,7 +87,7 @@
       </div>
 
       <div class="col-12 text-center mb-2">
-        <a href="../habitaciones/create.html" class="btn btn-primary">Nueva Habitación</a>
+        <a href="{{url_for('habitaciones.create')}}" class="btn btn-primary">Nueva Habitación</a>
       </div>
     </div>
 
@@ -181,19 +100,46 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <form id="formDeleteModal" action="" method="GET">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Eliminar Habitación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Confirma que desea eliminar la Habitación XXX
+        Confirma que desea eliminar la Habitación <b id="numberHabitacion"></b>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
+        <button type="submit" class="btn btn-primary">Eliminar</button>
       </div>
+    
+      </form>
     </div>
   </div>
+
 </div>
-</div>
+
+
 {% endblock %}
+
+{% block scriptExta %}
+
+<script>
+  $('.btnDeleteHabitacion').on('click', function (e) {
+
+    number = $(this).data().number
+    url = $(this).data().url
+
+    $('#formDeleteModal').prop('action',url)
+
+    $('#numberHabitacion').text(number)
+   
+
+
+
+  })
+
+</script>
+
+{% endblock%}

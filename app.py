@@ -36,5 +36,5 @@ app.register_blueprint(users, url_prefix="/")
 app.register_blueprint(admin, url_prefix="/admin")
 app.register_blueprint(habitaciones, url_prefix="/habitaciones")
 
-#app.register_blueprint(reservas, url_prefix="/reservas")
+app.register_blueprint(reservas, url_prefix="/reservas")
 

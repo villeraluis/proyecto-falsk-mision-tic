@@ -8,7 +8,4 @@ class Room(db.Model):
     description = db.Column(db.String(25),nullable=True)
     reservations = db.relationship('Reservation', backref='room', lazy=True)
     
-    def __init__(self, number, description):
-        self.number = number
-        self.description = description
         

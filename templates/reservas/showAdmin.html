@@ -1,0 +1,81 @@
+{% extends 'layoutAdmin.html' %}
+
+{% block space %}
+
+      <li class="breadcrumb-item"><span>Hotel</span></li>
+      <li class="breadcrumb-item"><span>Reservas</span></li>
+      <li class="breadcrumb-item active"><span>Detalles</span></li>
+   
+{% endblock %}
+
+
+{% block container %}
+<div class="body flex-grow-1 px-3">
+  <div class="container-lg">
+
+    <div class="card mb-4">
+        <div class="card-header"><strong>Detalles de Reserva {{reservation.id}}</strong></div>
+        <div class="card-body">
+
+            <form action="#" class="row ">
+
+              <div class="form-outline mb-4 col-12">
+                <p class="card-text"><b>Usuario : </b><span>{{reservation.user.name}}</span> </p>  
+            
+              </div>
+
+                <div class="form-outline mb-4 col-6">
+                  <p class="card-text"><b>Fecha de Inicio : </b><span>{{reservation.date_from}}</span> </p>  
+                  
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                  <p class="card-text"><b>Fecha Fin : </b><span>{{reservation.date_to}}</span> </p> 
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                  <p class="card-text"><b>Dias : </b><span>{{diffDate.days}}</span> </p> 
+                </div>
+
+                <div class="form-outline mb-4 col-6">
+                  <p class="card-text"><b>Estado : </b><span>{{reservation.status}}</span> </p> 
+                </div>
+
+
+                <div class="form-outline mb-4 col-6">
+                    <label class="form-label" for="number_room">Habitación</label>
+
+                    <div class="card" style="width: 500px;">
+                        
+                        <div class="card-body">
+                          <h5 class="card-title">{{reservation.room.number}}</h5>
+                          <p class="card-text"><b>Descripción: </b> {{reservation.room.description}}</p>
+                          
+                        </div>
+
+                        <img src="{{url_for('static', filename='images/img_wiews/habitacion1.jpg')}}" class="card-img-top" alt="Habitacion1" width="146"
+                        height="300">
+                      </div>
+                
+                    
+                </div>
+
+                <div class="text-center">
+                    <a href="{{url_for('reservas.update_admin',id=reservation.id)}}"  class="btn btn-primary btn-block mb-4">Actualizar Reserva</a>
+                </div>
+
+            </form>
+
+            
+
+
+
+        </div>
+    </div>
+    
+   
+  </div>
+</div>
+
+
+{% endblock %}
