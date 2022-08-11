@@ -20,6 +20,7 @@ def create_admin(idh=None):
        
     form.room_id.choices = [(room.id, room.number) for room in Room.query.all()]
     form.user_id.choices = [(client.id_number, client.name) for client in User.query.all()]
+    
     if(idh is not None):
         form.room_id.default=idh
         form.process()
@@ -54,6 +55,8 @@ def show_admin(id):
     diffDate = reservation.date_to - reservation.date_from             
     return render_template('reservas/showAdmin.html',reservation=reservation,diffDate=diffDate)
 
+
+
 @reservas.route("admin/actualizar/<id>", methods=["GET", "POST"])
 def update_admin(id):
     reservation = Reservation.query.get(id)
@@ -61,9 +64,6 @@ def update_admin(id):
 
     form.room_id.choices = [(room.id, room.number) for room in Room.query.all()]
     form.user_id.choices = [(client.id_number, client.name) for client in User.query.all()]
-    form.room_id.default=reservation.room_id
-    form.user_id.default=reservation.user_id
-    form.process()
     
     if form.validate_on_submit():
         date_from=form.date_from.data
@@ -80,11 +80,11 @@ def update_admin(id):
 
         db.session.commit()
 
-        flash('Reserva Actialuizada Correctamente!')
+        flash('Reserva Actualizada Correctamente!')
 
         return redirect(url_for('reservas.index_admin'))
                         
-    return render_template('reservas/update_admin.html',form=form, id=id)
+    return render_template('reservas/updateAdmin.html',form=form, id=id)
 
 
 

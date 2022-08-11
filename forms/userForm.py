@@ -1,4 +1,4 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators, SubmitField,IntegerField,EmailField,DateField
+from wtforms import  BooleanField, StringField, PasswordField, validators, SubmitField,IntegerField,EmailField,DateField
 from flask_wtf import FlaskForm
 
 class UserForm(FlaskForm):
@@ -10,6 +10,7 @@ class UserForm(FlaskForm):
     user_name= StringField('Nombre De Usuario',[validators.Length(min=4, max=25),validators.DataRequired()])
     pasword= PasswordField('Contraseña',[validators.Length(min=4, max=25),validators.DataRequired(), validators.EqualTo('confirm')])
     confirm = PasswordField('Confirmar Contraseña',[validators.DataRequired()])
+    is_enable= BooleanField('Habilitado', default=True)
     submit = SubmitField(label=('Crear Cuenta'))
     
        

@@ -2,16 +2,21 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.room import Room
 from utils.db import db
 from forms.roomForm import RoomForm
+from flask_login import login_user as login_flask, current_user, logout_user, login_required
+from datetime import date
 
 habitaciones = Blueprint("habitaciones", __name__)
 
 @habitaciones.route('/admin')
-def index_admin(): 
+@login_required
+def index_admin():
+    today = date.today() 
     rooms= Room.query.all()
-    return render_template('habitaciones/indexAdmin.html',rooms=rooms)
+    return render_template('habitaciones/indexAdmin.html',rooms=rooms,today=today)
 
 
 @habitaciones.route('/crear_admin',methods=['GET','POST'])
+@login_required
 def create():
     form = RoomForm()
     if form.validate_on_submit():
@@ -34,6 +39,7 @@ def create():
 
 
 @habitaciones.route("/actualizar_admin/<id>", methods=["GET", "POST"])
+@login_required
 def update(id):
     
     room = Room.query.get(id)
@@ -42,7 +48,8 @@ def update(id):
     if form.validate_on_submit():
         number=form.number.data
         description=form.description.data
-    
+        is_enable=form.is_enable.data
+        room.is_enable=is_enable
         room.number=number
         room.description=description
         
@@ -56,22 +63,25 @@ def update(id):
 
 
 @habitaciones.route('/ver_habitacion_admin/<id>',methods=['GET'])
+@login_required
 def show_admin(id):
     room = Room.query.get(id)            
     return render_template('habitaciones/showAdmin.html',room=room)
 
 
 @habitaciones.route("/borrar_admin/<id>", methods=["GET"])
-def delete(id):
+@login_required
+def disable(id):
     room = Room.query.get(id)  
-    db.session.delete(room)
+    room.is_enable=False
     db.session.commit()
-    flash('Habitacion Borrada Correctamente!')
+    flash('Habitacion desabilitada Correctamente!')
     
     return redirect(url_for('habitaciones.index_admin'))
 
 
 @habitaciones.route('/users')
+@login_required
 def index_users():
     users = Room.query.all() 
     return render_template('viewsAdmin/indexRooms.html',users=users)

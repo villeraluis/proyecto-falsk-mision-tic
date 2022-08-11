@@ -12,13 +12,35 @@ from app import login_manager
 def load_user(user_id):
     return User.query.get(user_id)
 
+
+from datetime import date
+def edad_actual(fecha_nacimiento):
+    """
+    Calcular edad actual basado en fecha de nacimiento
+    :return: int edad
+    """
+    # Obtener fecha de hoy
+    today = date.today()
+    # Calcular Edad
+    age = today.year - fecha_nacimiento.year - (
+            (today.month, today.day) < (fecha_nacimiento.month, fecha_nacimiento.day))
+    return age
+
+
+   
+
+
+    
+
 admin = Blueprint("admin", __name__)
 
 @admin.route('/')
+@login_required
 def index():  
     return render_template('viewsAdmin/index.html')
 
 @admin.route('/register_user',methods=['GET','POST'])
+@login_required
 def register_user():
     form = UserForm()
     formCli=ClientForm()
@@ -72,6 +94,7 @@ def register_user():
 
 
 @admin.route('/register_admin',methods=['GET','POST'])
+@login_required
 def register_admin():
     form = UserForm()
     if form.validate_on_submit():
@@ -107,42 +130,110 @@ def register_admin():
     return render_template('auth/registerAdmin.html',form=form)
 
 @admin.route('/users')
+@login_required
 def index_users():
     users = User.query.all()  
     return render_template('viewsAdmin/indexUsers.html',users=users)
+
+
+@admin.route('/ver_usuario_admin/<id>',methods=['GET'])
+@login_required
+def show_admin(id):
+    user = User.query.get(id) 
+    edad=edad_actual(user.date_birth)
+    if(user.role_id==1):
+        return render_template('viewsAdmin/showUserAdminForAdmin.html',user=user,edad=edad)
+                     
+    return render_template('viewsAdmin/showUserForAdmin.html',user=user,edad=edad)         
+  
             
 @admin.route("/actualizar_usuario/<id>", methods=["GET", "POST"])
-def update(id):
-    # get contact by Id
-    print(id)
-    contact = Contact.query.get(id)
+@login_required
+def update_admin(id):
+    user = User.query.get(id)
+    form = UserForm(obj=user)
+    if(user.role_id==1):
+        if form.validate_on_submit():
+            id_number=form.id_number.data
+            name=form.name.data
+            last_name=form.last_name.data
+            email=form.email.data
+            date_birth = form.date_birth.data
+            user_name=form.user_name.data
+            pasword=form.pasword.data
+            is_enable=form.is_enable.data
+    
+            user.id_number=id_number
+            user.name=name
+            user.last_name=last_name
+            user.email=email
+            user.date_birth=date_birth
+            user.user_name=user_name
+            user.pasword= generate_password_hash(pasword)
+            user.is_enable=is_enable
+            
+            # guardar datos en la tabla usuarios
+            db.session.commit()
+        
+            flash('Cuenta Actualizada Correctamente!')
+            return redirect(url_for('admin.index_users'))
+        return render_template('viewsAdmin/updateUserAdminForAdmin.html',form=form, id=id)
+    
+    
+    client=Client.query.filter_by(user_id=id).first()
+    formCli=ClientForm(obj=client)
 
-    if request.method == "POST":
-        contact.fullname = request.form['fullname']
-        contact.email = request.form['email']
-        contact.phone = request.form['phone']
-
+    if form.validate_on_submit():
+        id_number=form.id_number.data
+        name=form.name.data
+        last_name=form.last_name.data
+        email=form.email.data
+        date_birth = form.date_birth.data
+        user_name=form.user_name.data
+        pasword=form.pasword.data
+        is_enable=form.is_enable.data
+ 
+        user.id_number=id_number
+        user.name=name
+        user.last_name=last_name
+        user.email=email
+        user.date_birth=date_birth
+        user.user_name=user_name
+        user.pasword= generate_password_hash(pasword)
+        user.is_enable=is_enable
+        
+        # guardar datos en la tabla usuarios
         db.session.commit()
-
-        flash('Contact updated successfully!')
-
-        return redirect(url_for('contacts.index'))
-
-    return render_template("update.html", contact=contact)
-
-
-@admin.route("/borrar_usuario/<id>", methods=["GET"])
-def delete_user(id):
-    reservation = User.query.get(id) 
-    if reservation.role_id==2:
-        cliente= Client.query.filter_by(user_id=id).first()    
-        db.session.delete(cliente)
+        
+         #datos del cliente
+        address=formCli.address.data
+        phone=formCli.phone.data
+        user_id=id_number
+            
+            
+        client.address=address
+        client.phone=phone
+        client.user_id=user_id
+     
+        # guardar datos en la tabla clientes       
         db.session.commit()
-        flash('cliente Borrado Correctamente!')
-       
-    db.session.delete(reservation)
+            
+        flash('Cuenta Actualizada Correctamente!')
+        return redirect(url_for('admin.index_users'))
+        
+        
+                        
+    return render_template('viewsAdmin/updateUserForAdmin.html',form=form,formCli=formCli, id=id)
+
+
+
+@admin.route("/desabilitar_usuario/<id>", methods=["GET"])
+@login_required
+def disable_user(id):
+    user = User.query.get(id) 
+    user.is_enable = False  
     db.session.commit()
     
-    flash('Usuario Borrado Correctamente!')
+    flash('Usuario desabilitado Correctamente!')
     
     return redirect(url_for('admin.index_users'))

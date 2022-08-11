@@ -26,7 +26,7 @@ def index():
 @login_required
 def logout():
     logout_user()
-    flash('You have successfully logged yourself out.')
+    flash('Se ha Logeado Satisfactoriamente.')
     return redirect(url_for('users.login_user'))
 
 
@@ -40,8 +40,12 @@ def login_user():
         user=User.query.filter_by(user_name=user_name).first()
         if user and user.check_password(pasword):
             login_flask(user,remember=True)
+            if(user.role_id==1):
+                return redirect(url_for('admin.index'))
             return redirect(url_for('users.index'))
+        
         msj='Usuario o Contraseña incorrectos'
+        
         return render_template('auth/loginUser.html',form=form,msj=msj)
         
     return render_template('auth/loginUser.html',form=form)

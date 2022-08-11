@@ -15,13 +15,14 @@ class User(db.Model, UserMixin):
     user_name = db.Column(db.String(64), unique=True, nullable=False)
     pasword = db.Column(db.String(128))
     confirm_email = db.Column(db.Date(),nullable=True)
+    is_enable= db.Column(db.Boolean,nullable=False,default=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'),nullable=False)
     client = db.relationship('Client', backref='user', lazy=True ,uselist=False)
     reservations = db.relationship('Reservation', backref='user', lazy=True)
     
          
-    def check_password(self, password): 
-        return check_password_hash(self.pasword, password)
+    def check_password(self, pasword): 
+        return check_password_hash(self.pasword, pasword)
    
 
     def get_id(self):

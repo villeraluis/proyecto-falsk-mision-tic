@@ -19,6 +19,7 @@
           <thead>
             <tr>
               <th scope="col">Numero</th>
+              <th scope="col">estado</th>
               <th scope="col">Proxima Reserva</th>
               <th scope="col">Acciones</th>
             </tr>
@@ -28,7 +29,16 @@
             {% for room in rooms %}
             <tr>
               <th scope="row">{{room.number}}</th>
-              <td>27/07/2022 - 29/07/2022</td>
+              <th scope="row">
+                {% if room.is_enable %}
+                    <b class="text-success">Habilitada</b>
+                {% else %}
+                    <b class="text-danger">Desabilitada</b>
+                {% endif %}
+                
+
+              </th>
+              <td>{{room.last_reservation.date_from}}</td>
               <td>
                 <a href="{{url_for('habitaciones.show_admin',id=room.id)}}" class="btn btn-sm btn-primary"
                   title="ver detalles">
@@ -59,9 +69,9 @@
                   </svg>
                 </a>
 
-                <span role="button" class="btn btn-sm btn-danger btnDeleteHabitacion" title="eliminar"  data-bs-toggle="modal"
+                <span role="button" class="btn btn-sm btn-warning btnDeleteHabitacion" title="desabilitar Habitación"  data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
-                  data-number="{{room.number}}"  data-url="{{url_for('habitaciones.delete',id=room.id)}}">
+                  data-number="{{room.number}}"  data-url="{{url_for('habitaciones.disable',id=room.id)}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                     viewBox="0 0 16 16">
                     <path
@@ -103,15 +113,15 @@
       <form id="formDeleteModal" action="" method="GET">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar Habitación</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Desabiltar Habitación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Confirma que desea eliminar la Habitación <b id="numberHabitacion"></b>
+        Confirma que desea desabilitar la Habitación <b id="numberHabitacion"></b>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Eliminar</button>
+        <button type="submit" class="btn btn-primary">Desabilitar</button>
       </div>
     
       </form>

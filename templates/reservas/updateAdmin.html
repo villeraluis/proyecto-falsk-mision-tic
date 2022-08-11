@@ -21,7 +21,7 @@
 
           <div class="form-outline mb-4 {%if form.user_id.errors %} has-error{% endif %}">
             {{ form.user_id.label(class='form-label') }}
-            {{ form.user_id(class='form-control', value='') }}
+            {{ form.user_id(class='form-control') }}
             {% for error in form.user_id.errors %}
             <span class="help-block">{{ error }}</span>
             {% endfor %}
@@ -30,7 +30,7 @@
 
           <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_from.errors %} has-error{% endif %}">
             {{ form.date_from.label(class='form-label') }}
-            {{ form.date_from(class='form-control', value='') }}
+            {{ form.date_from(class='form-control') }}
             {% for error in form.date_from.errors %}
             <span class="help-block">{{ error }}</span>
             {% endfor %}
@@ -39,7 +39,7 @@
 
           <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_to.errors %} has-error{% endif %}">
             {{ form.date_to.label(class='form-label') }}
-            {{ form.date_to(class='form-control', value='') }}
+            {{ form.date_to(class='form-control') }}
             {% for error in form.date_to.errors %}
             <span class="help-block">{{ error }}</span>
             {% endfor %}
@@ -48,7 +48,7 @@
 
           <div class="form-outline mb-4 col-md-6 mb-4 {%if form.room_id.errors %} has-error{% endif %}">
             {{ form.room_id.label(class='form-label') }}
-            {{ form.room_id(class='form-control', value='') }}
+            {{ form.room_id(class='form-control') }}
             {% for error in form.room_id.errors %}
             <span class="help-block">{{ error }}</span>
             {% endfor %}

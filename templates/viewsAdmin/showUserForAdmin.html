@@ -1,0 +1,73 @@
+</html>
+{% extends 'layoutAdmin.html' %}
+
+{% block space %}
+<li class="breadcrumb-item"><span>Inicio</span></li>
+<li class="breadcrumb-item"><span>Usuarios</span></li>
+<li class="breadcrumb-item active"><span>Detalles de Usuario</span></li>
+{% endblock %}
+
+{% block container %}
+<div class="body flex-grow-1 px-3">
+    <div class="container-lg">
+      <div class="card mb-4">
+        <div class="card-header"><strong>Detalles Usuario Cliente</strong></div>
+        <div class="card-body">
+
+
+                <div class="form-outline mb-4">
+                    <p class="card-text"><b>Id Usuario : </b><span>{{user.id_number}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Nombre Usuario : </b><span>{{user.user_name}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Nombres : </b><span>{{user.name}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Apellidos : </b><span>{{user.last_name}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Correo : </b><span>{{user.email}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Telefono : </b><span>{{user.client.phone}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Dirtección : </b><span>{{user.client.address}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Fecha de nacimiento : </b><span>{{user.date_birth}}</span> </p>  
+                </div>
+
+                <div class="form-outline mb-4">
+                  <p class="card-text"><b>Edad : </b><span>{{edad}} años</span> </p>  
+                </div>
+
+
+                <div class="text-center">
+                    <a href="{{url_for('admin.index_users')}}" class="btn btn-secondary btn-block mb-4 mx-2">Volver a Vista Principal</a>
+                    <a href="{{url_for('admin.update_admin',id=user.id_number)}}" class="btn btn-primary btn-block mb-4">Editar Usuario</a>
+                </div>
+
+            </form>
+
+            
+
+
+
+        </div>
+    </div>
+
+         
+     
+    </div>
+  </div>
+{% endblock %}
