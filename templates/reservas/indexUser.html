@@ -44,7 +44,7 @@
                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                   </svg>
                 </a>
-                <a href="update_user.html" class="btn btn-sm btn-success" title="editar">
+                <a href="{{url_for('reservas.update_user',id=reservation.id)}}" class="btn btn-sm btn-success" title="editar">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                     <path
@@ -56,8 +56,9 @@
 
 
 
-                <span role="button" class="btn btn-sm btn-danger" title="Cancelar Resereva" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">
+                <span role="button" class="btn btn-sm btn-danger btnCancelReserva" title="eliminar"  data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                  data-number="{{reservation.id}}"  data-url="{{url_for('reservas.cancel_user',id=reservation.id)}}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-calendar-x" viewBox="0 0 16 16">
                     <path
@@ -96,17 +97,21 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+      <form id="formDeleteModal" action="" method="GET">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Cancelar Reserva</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Confirma que desea Cancelar su reserva realizada en la fecha <b>dd/mm/aaaa hasta dd/mm/aaaa</b>
-      </div>
+        <div class="modal-body">
+          Confirma que desea Cancelar la Reserva <b id="number"></b>
+        </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+        <button type="submit" class="btn btn-primary">Cancelar Reservación</button>
       </div>
+    
+      </form>
     </div>
   </div>
 </div>
@@ -141,3 +146,23 @@
 </div>
 
 {% endblock %}
+
+{% block scriptExta %}
+
+<script>
+
+
+  $('.btnCancelReserva').on('click', function (e) {
+
+    number = $(this).data().number
+    url = $(this).data().url
+
+    $('#formDeleteModal').prop('action',url)
+
+    $('#number').text(number)
+
+  })
+
+</script>
+
+{% endblock%}

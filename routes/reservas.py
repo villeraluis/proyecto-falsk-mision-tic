@@ -100,7 +100,6 @@ def delete_admin(id):
     return redirect(url_for('reservas.index_admin'))
 
 
-
 @reservas.route('/user')
 def index_user():  
     reservations = Reservation.query.filter(Reservation.user_id== current_user.id_number).all()
@@ -142,6 +141,42 @@ def create_user(idh=None):
     return render_template('reservas/createUser.html',form=form)
 
 
+@reservas.route("/actualizar/<id>", methods=["GET", "POST"])
+def update_user(id):
+    reservation = Reservation.query.get(id)
+    form = ReservationFormUser(obj=reservation)
+
+    form.room_id.choices = [(room.id, room.number) for room in Room.query.all()]
+   
+    
+    if form.validate_on_submit():
+        date_from=form.date_from.data
+        date_to=form.date_to.data
+        status='Editada - Activa'
+        room_id=form.room_id.data
+
+        reservation.date_from=date_from
+        reservation.date_to=date_to
+        reservation.status=status
+        reservation.room_id=room_id
+       
+
+        db.session.commit()
+
+        flash('Reserva Actualizada Correctamente!')
+
+        return redirect(url_for('reservas.index_user'))
+                        
+    return render_template('reservas/updateUser.html',form=form, id=id)
 
 
+@reservas.route("/cancelar/<id>", methods=["GET"])
+def cancel_user(id):
+    reservation = Reservation.query.get(id) 
+     
+    reservation.status='Cancelada'
+    db.session.commit()
+    flash('Reserva  Ha sido cancelada!')
+    
+    return redirect(url_for('reservas.index_user'))
 

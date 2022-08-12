@@ -1,0 +1,97 @@
+{% extends 'layoutUser.html' %}
+
+{% block body %}
+
+
+{% block navbar %}
+
+{% include 'partials/_navbarUser2.html' %}
+
+{% endblock %}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="card mb-4 ">
+
+            <div class="card-header d-flex justify-content-between">
+                <h3>Actulalizando Reserva # {{id}}</h3> 
+                <a href="{{url_for('reservas.index_user')}}" class="btn btn-outline-success">Ir a Mis Reservas</a>
+            </div>
+            
+            <div class="card-body">
+
+                <form action="{{url_for('reservas.update_user',id=id)}}" class="row " method="post">
+
+                    {{ form.csrf_token }}
+                    
+                    <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_from.errors %} has-error{% endif %}">
+                        {{ form.date_from.label(class='form-label') }}
+                        {{ form.date_from(class='form-control') }}
+                        {% for error in form.date_from.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="form-outline mb-4 col-md-6 mb-4 {%if form.date_to.errors %} has-error{% endif %}">
+                        {{ form.date_to.label(class='form-label') }}
+                        {{ form.date_to(class='form-control') }}
+                        {% for error in form.date_to.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="form-outline mb-4 col-md-6 mb-4 {%if form.room_id.errors %} has-error{% endif %}">
+                        {{ form.room_id.label(class='form-label') }}
+                        {{ form.room_id(class='form-control') }}
+                        {% for error in form.room_id.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- <div class="form-outline mb-4 col-6">
+                        <label class="form-label" for="number_room">Datos de la habitación</label>
+
+                        <div class="card" style="width: 500px;">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Número 201</h5>
+                                <p class="card-text"><b>Descripción: </b> Lorem ipsum, dolor sit amet consectetur
+                                    adipisicing elit.</p>
+
+                            </div>
+
+                            <img src="../public/images/img_wiews/habitacion1.jpg" class="card-img-top" alt="Habitacion1"
+                                width="146" height="300">
+                        </div>
+
+
+                    </div>
+ -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-outline-dark btn-block mb-4">Actualizar Reserva</button>
+                    </div>
+
+                </form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
