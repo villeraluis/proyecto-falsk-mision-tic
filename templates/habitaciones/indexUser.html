@@ -1,0 +1,150 @@
+{% extends 'layoutUser.html' %}
+
+{% block body %}
+
+
+{% block navbar %}
+
+{% include 'partials/_navbar.html' %}
+
+{% endblock %}
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-6" style="max-height: 80vh; overflow-y:auto">
+      <div class="row" x>
+        <div class="col-12 ">
+          <h4 class="text-center">Descripción de las Habitaciónes</h4>
+
+          <div class="card m-2 p-2 shadow">
+            <p> Disfruta de nuestra exclusivas Habitaciones.
+              El lugar tiene un estilo tropical que combina con el hermoso paisaje,
+              perfecto para desconectar de la vida cotidiana mientras estás rodeado de un mar de siete colores.
+              Las habitaciones cuentan con cama para 2 y una vista espectacular,
+              desde las que puedes sentir el olor tropical, y una piscina para disfrutar del lugar paradisíaco mientras
+              sientes el viento en tu rostro...
+              Disfruta de nuestro Oasis.</p>
+
+            <p>
+
+              El servicio viene con personal de limpieza y mantenimiento del lugar.
+              Nuestro personal te ayudará con todo lo que necesites durante tu estadía! La isla es completamente
+              privada,
+              por lo cual pueden tener acceso a todas las zonas de la isla,
+              podrás disfrutar de un lugar exclusivo donde nada ni nadie te molestará!
+            </p>
+
+
+          </div>
+          <div class="card m-2 p-2 ">
+            <h5>precio por Habitación : <b class="text-success">$100.000</b> por Día</h5>
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+
+      <div class="row">
+
+        {% for room in rooms %}
+
+        <div class="card col-4 m-4 card-button" role="button">
+          <div class="card-header text-center">
+            <h3>Habitación {{room.number}}</h3>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{room.description}}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+              content.</p>
+
+          </div>
+
+          <div class="card-footer text-center">
+            <span class="btn btn-success"><b>Ver Disponibilidad</b></span>
+          </div>
+        </div>
+
+        {%endfor%}
+
+      </div>
+
+
+
+
+    </div>
+
+    <div class="col-6" style="max-height: 80vh; overflow-y:auto">
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+            aria-label="Slide 4"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+            aria-label="Slide 5"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
+            aria-label="Slide 6"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion2.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+          <div class="carousel-item img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion3.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+          <div class="carousel-item img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion4.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+          <div class="carousel-item img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion5.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+          <div class="carousel-item img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion6.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+          <div class="carousel-item img_carrusel_custom">
+            <img src="{{url_for('static', filename='images/img_wiews/habitacion7.jpg')}}" class="d-block w-100 "
+              alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mt-2 p-3 ">
+    <div class="col-12 text-center">
+      <iframe width="90%" height="600" src="https://www.youtube.com/embed/OMmp6uhzCVw" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

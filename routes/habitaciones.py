@@ -87,3 +87,13 @@ def index_users():
     return render_template('viewsAdmin/indexRooms.html',users=users)
 
 
+#section routes user
+
+@habitaciones.route('/user')
+@login_required
+def index_user():
+    today = date.today() 
+    rooms= Room.query.all()
+    return render_template('habitaciones/indexUser.html',rooms=rooms,today=today)
+
+
