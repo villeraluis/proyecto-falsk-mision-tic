@@ -1,6 +1,6 @@
 from pydoc import cli
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from middlewares.routeMiddleware import adminMiddleware,userMiddleware,superadminMiddleware
+from middlewares.routeMiddleware import adminMiddleware,userMiddleware
 from models.client import Client
 from models.user import User
 from utils.db import db
