@@ -9,3 +9,10 @@ class ReservationForm(FlaskForm):
     room_id= SelectField('Habitación',choices=[] , coerce=int)
     user_id = SelectField('Usuario',choices=[] , coerce=int)
     submit = SubmitField(label=('Crear Reserva'))
+    
+    
+class ReservationFormUser(FlaskForm):
+    date_from=DateTimeLocalField('Fecha de Inicio',[validators.DataRequired()],format='%Y-%m-%dT%H:%M')
+    date_to=DateTimeLocalField('Fecha Final', [validators.DataRequired()],format='%Y-%m-%dT%H:%M')
+    room_id= SelectField('Habitación',choices=[] , coerce=int)
+    submit = SubmitField(label=('Crear Reserva'))

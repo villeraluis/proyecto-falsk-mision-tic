@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.reservation import Reservation
+from flask_login import login_user as login_flask, current_user, logout_user, login_required
 from models.room import Room
 from models.user import User
 
 from utils.db import db
-from forms.reservationForm import ReservationForm
+from forms.reservationForm import ReservationForm, ReservationFormUser
 
 reservas = Blueprint("reservas", __name__)
 
@@ -102,9 +103,43 @@ def delete_admin(id):
 
 @reservas.route('/user')
 def index_user():  
+    reservations = Reservation.query.filter(Reservation.user_id== current_user.id_number).all()
     labelCurrent='Mis Reservas'
-    return render_template('reservas/indexUser.html',labelCurrent=labelCurrent)
+    return render_template('reservas/indexUser.html',labelCurrent=labelCurrent,reservations=reservations)
 
+
+@reservas.route("/crear/<idh>", methods=['GET'])      
+@reservas.route('/crear', methods=['GET','POST'])
+def create_user(idh=None):
+    form = ReservationFormUser()
+       
+    form.room_id.choices = [(room.id, room.number) for room in Room.query.all()]
+    
+    if(idh is not None):
+        form.room_id.default=idh
+        form.process()
+    
+    if form.validate_on_submit():
+        date_from=form.date_from.data
+        date_to=form.date_to.data
+        status='Realizada - Activa'
+        room_id=form.room_id.data
+        
+        reservation = Reservation()
+        reservation.date_from=date_from
+        reservation.date_to=date_to
+        reservation.status=status
+        reservation.room_id=room_id
+        reservation.user_id=current_user.id_number
+
+        db.session.add(reservation)
+        db.session.commit()
+
+        flash('Reserva Creada Correctamente!')
+
+        return redirect(url_for('reservas.index_user'))
+    
+    return render_template('reservas/createUser.html',form=form)
 
 
 
