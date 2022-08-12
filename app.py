@@ -33,8 +33,6 @@ app.register_blueprint(admin, url_prefix="/admin")
 app.register_blueprint(habitaciones, url_prefix="/habitaciones")
 app.register_blueprint(reservas, url_prefix="/reservas")
 
-@app.before_request
-def middleware():
-    print('Antes de la peticion')
+
     
     

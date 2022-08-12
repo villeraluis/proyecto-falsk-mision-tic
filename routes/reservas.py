@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from middlewares.routeMiddleware import adminMiddleware
 from models.comment import Comment
 from models.reservation import Reservation
 from flask_login import login_user as login_flask, current_user, logout_user, login_required
@@ -12,6 +13,7 @@ reservas = Blueprint("reservas", __name__)
 
 @reservas.route('/admin')
 @login_required
+@adminMiddleware
 def index_admin():
     reservations = Reservation.query.all()  
     return render_template('reservas/indexAdmin.html',reservations=reservations)
@@ -19,6 +21,7 @@ def index_admin():
 @reservas.route("admin/crear/<idh>", methods=['GET'])      
 @reservas.route('admin/crear', methods=['GET','POST'])
 @login_required
+@adminMiddleware
 def create_admin(idh=None):
     form = ReservationForm()
        
@@ -55,6 +58,7 @@ def create_admin(idh=None):
 
 @reservas.route('/ver_reserva_admin/<id>',methods=['GET'])
 @login_required
+@adminMiddleware
 def show_admin(id):
     reservation = Reservation.query.get(id)  
     diffDate = reservation.date_to - reservation.date_from             
@@ -64,6 +68,7 @@ def show_admin(id):
 
 @reservas.route("admin/actualizar/<id>", methods=["GET", "POST"])
 @login_required
+@adminMiddleware
 def update_admin(id):
     reservation = Reservation.query.get(id)
     form = ReservationForm(obj=reservation)
@@ -96,6 +101,7 @@ def update_admin(id):
 
 @reservas.route("/borrar_admin/<id>", methods=["GET"])
 @login_required
+@adminMiddleware
 def delete_admin(id):
     reservation = Reservation.query.get(id) 
      
@@ -105,6 +111,7 @@ def delete_admin(id):
     
     return redirect(url_for('reservas.index_admin'))
 
+#rutas par usuarios
 
 @reservas.route('/user')
 @login_required

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from middlewares.routeMiddleware import adminMiddleware,userMiddleware,superadminMiddleware
 from models.room import Room
 from utils.db import db
 from forms.roomForm import RoomForm
@@ -9,6 +10,7 @@ habitaciones = Blueprint("habitaciones", __name__)
 
 @habitaciones.route('/admin')
 @login_required
+@adminMiddleware
 def index_admin():
     today = date.today() 
     rooms= Room.query.all()
@@ -17,6 +19,7 @@ def index_admin():
 
 @habitaciones.route('/crear_admin',methods=['GET','POST'])
 @login_required
+@adminMiddleware
 def create():
     form = RoomForm()
     if form.validate_on_submit():
@@ -40,6 +43,7 @@ def create():
 
 @habitaciones.route("/actualizar_admin/<id>", methods=["GET", "POST"])
 @login_required
+@adminMiddleware
 def update(id):
     
     room = Room.query.get(id)
@@ -64,6 +68,7 @@ def update(id):
 
 @habitaciones.route('/ver_habitacion_admin/<id>',methods=['GET'])
 @login_required
+@adminMiddleware
 def show_admin(id):
     room = Room.query.get(id)            
     return render_template('habitaciones/showAdmin.html',room=room)
@@ -71,6 +76,7 @@ def show_admin(id):
 
 @habitaciones.route("/borrar_admin/<id>", methods=["GET"])
 @login_required
+@adminMiddleware
 def disable(id):
     room = Room.query.get(id)  
     room.is_enable=False
@@ -80,14 +86,8 @@ def disable(id):
     return redirect(url_for('habitaciones.index_admin'))
 
 
-@habitaciones.route('/users')
-@login_required
-def index_users():
-    users = Room.query.all() 
-    return render_template('viewsAdmin/indexRooms.html',users=users)
-
-
 #section routes user
+
 
 @habitaciones.route('/user')
 @login_required

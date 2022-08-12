@@ -1,5 +1,6 @@
 from pydoc import cli
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from middlewares.routeMiddleware import adminMiddleware,userMiddleware,superadminMiddleware
 from models.client import Client
 from models.user import User
 from utils.db import db
@@ -36,11 +37,13 @@ admin = Blueprint("admin", __name__)
 
 @admin.route('/')
 @login_required
+@adminMiddleware
 def index():  
     return render_template('viewsAdmin/index.html')
 
 @admin.route('/register_user',methods=['GET','POST'])
 @login_required
+@adminMiddleware
 def register_user():
     form = UserForm()
     formCli=ClientForm()
@@ -95,6 +98,7 @@ def register_user():
 
 @admin.route('/register_admin',methods=['GET','POST'])
 @login_required
+@adminMiddleware
 def register_admin():
     form = UserForm()
     if form.validate_on_submit():
@@ -131,6 +135,7 @@ def register_admin():
 
 @admin.route('/users')
 @login_required
+@adminMiddleware
 def index_users():
     users = User.query.all()  
     return render_template('viewsAdmin/indexUsers.html',users=users)
@@ -138,6 +143,7 @@ def index_users():
 
 @admin.route('/ver_usuario_admin/<id>',methods=['GET'])
 @login_required
+@adminMiddleware
 def show_admin(id):
     user = User.query.get(id) 
     edad=edad_actual(user.date_birth)
@@ -149,6 +155,7 @@ def show_admin(id):
             
 @admin.route("/actualizar_usuario/<id>", methods=["GET", "POST"])
 @login_required
+@adminMiddleware
 def update_admin(id):
     user = User.query.get(id)
     form = UserForm(obj=user)
@@ -229,6 +236,7 @@ def update_admin(id):
 
 @admin.route("/desabilitar_usuario/<id>", methods=["GET"])
 @login_required
+@adminMiddleware
 def disable_user(id):
     user = User.query.get(id) 
     user.is_enable = False  

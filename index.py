@@ -6,7 +6,7 @@ from utils.db import db
    
 with app.app_context():
     db.create_all()
-    
+      
 
 @app.before_first_request
 def middleware():
