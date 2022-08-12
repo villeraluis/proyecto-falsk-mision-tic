@@ -41,7 +41,7 @@ def login_user():
         user=User.query.filter_by(user_name=user_name).first()
         if user and user.check_password(pasword):
             login_flask(user,remember=True)
-            if(user.role_id==1):
+            if(user.role_id==2):
                 return redirect(url_for('admin.index'))
             return redirect(url_for('users.index'))
         
