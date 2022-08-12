@@ -8,6 +8,5 @@ class Comment(db.Model):
     reservation_id = db.Column(db.Integer, db.ForeignKey('reservations.id'),nullable=False)
     
     
-    def __init__(self, description):
-        self.description = description
+    
        

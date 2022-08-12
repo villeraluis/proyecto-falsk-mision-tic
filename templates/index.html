@@ -3,12 +3,12 @@
 {% block body %}
 
 
-  {% block navbar %}
+{% block navbar %}
 
-  {% include 'partials/_navbar.html' %}
-  
-  {% include 'partials/_menuInitUser.html' %}
-  {% endblock %}
+{% include 'partials/_navbar.html' %}
+
+{% include 'partials/_menuInitUser.html' %}
+{% endblock %}
 
 <div class="container-fluid">
 
@@ -60,28 +60,35 @@
 
   </div>
 
-  <div class="row" id="section_more">
-    <div class="col-12">
-      <h2 class="text-center">Nosotros</h2>
+  <div class="row mb-3 " id="section_more">
+    <div class="col-12 ">
+      <div class="card p-2">
+        <h2 class="text-center">Sobre El Hotel Millenium Plaza</h2>
 
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus atque sequi eligendi distinctio iste ex ad
-        saepe, at quae tempora cumque. Obcaecati sit sapiente repellat laborum suscipit similique facilis velit?
+
+        El Millenium Plaza Hotel, ubicado en la Mejor Avenida de la Ciudad, dispone de piscina climatizada, servicio de
+        alquiler de coches y recepción 24h.
+
+        El restaurante Interno, situado en la 4ª planta del hotel, ofrece platos de cocina italiana, oriental y
+        caribeña, con ensaladas y postres. El desayuno incluye frutas, huevos, jamón y pan. El lobby bar cuenta con
+        terraza y ofrece variadas bebidas.
+
       </p>
 
       <h4>Nuestra Ofertas</h4>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui iste error, dolore ex quod, nulla, quae esse
         assumenda saepe quisquam architecto quibusdam similique eos voluptates suscipit numquam iusto doloribus
         molestias.</p>
+
+      </div>
+      
     </div>
   </div>
 
 
 </div>
 
-<div class="text-center m-4">
-  <a href="./views_admin/index.html" class="btn btn-danger">Ir a Vista Admin boton temporal</a>
-</div>
 
 <a class="ir-arriba" javascript:void(0) title="Volver arriba">
   <span class="fa-stack">

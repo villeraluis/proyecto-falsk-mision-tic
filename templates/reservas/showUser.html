@@ -1,0 +1,292 @@
+{% extends 'layoutUser.html' %}
+
+{% block body %}
+
+
+{% block navbar %}
+
+{% include 'partials/_navbarUser2.html' %}
+
+{% endblock %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="card mb-4 ">
+      <div class="card-header d-flex justify-content-between">
+        <h3>Detalle Reserva # {{reservation.id}}</h3>
+        <a href="{{url_for('reservas.index_user')}}" class="btn btn-outline-success">Ir a Mis Reservas</a>
+      </div>
+      <div class="card-body">
+
+        <div class="row ">
+
+
+
+          <div class="form-outline mb-4 col-6">
+            <p class="card-text"><b>Fecha de Inicio : </b><span>{{reservation.date_from}}</span> </p>
+
+          </div>
+
+          <div class="form-outline mb-4 col-6">
+            <p class="card-text"><b>Fecha Fin : </b><span>{{reservation.date_to}}</span> </p>
+          </div>
+
+          <div class="form-outline mb-4 col-6">
+            <p class="card-text"><b>Dias : </b><span>{{diffDate}}</span> </p>
+          </div>
+
+          <div class="form-outline mb-4 col-6">
+            <p class="card-text"><b>Estado : </b><span>{{reservation.status}}</span> </p>
+          </div>
+
+
+          <div class="form-outline mb-4 col-6">
+            <label class="form-label"><b>Detalles Habitación</b></label>
+
+            <div class="card" style="width: 500px;">
+
+              <div class="card-body">
+                <h5 class="card-title">Número {{reservation.room.number}}</h5>
+                <p class="card-text"><b>Descripción: </b> {{reservation.room.description}}</p>
+
+              </div>
+
+              <img src="{{url_for('static', filename='images/img_wiews/habitacion1.jpg')}}" class="card-img-top"
+                alt="Habitacion1" width="136" height="300">
+            </div>
+
+
+          </div>
+
+          <div class="form-outline mb-4 col-6">
+            <label class="form-label" for="number_room"><b>Comentarios</b></label>
+
+
+
+            <div class="card" style="width: 500px;">
+
+              <div class="card-body">
+                {% for comment in comments %}
+
+                <div class="card my-2">
+                  <div class="card-body">
+
+
+                    {{comment.description}}
+
+                    <div class="bg-warning">
+                      La calificacion para esta estadia es de: <b class="text-success">{{comment.rating}}</b>
+                    </div>
+                  </div>
+
+                  <div class="card-footer text-end">
+                    <span role="button" class="btn btn-sm btn-primary btnEditComment" data-bs-toggle="modal"
+                      data-bs-target="#exampleModalEdit"  data-idcomment="{{comment.id}}"
+                  
+                      data-description="{{comment.description}}" data-rating="{{comment.rating}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                        >
+                        <path
+                          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                      </svg>
+                    </span>
+                    <span role="button" class="btn btn-sm btn-danger btnDeleteComment" title="Eliminar Comentario" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"  data-idcomment="{{comment.id}}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash" viewBox="0 0 16 16">
+                        <path
+                          d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd"
+                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+                {% endfor %}
+
+                <div class="text-center">
+
+                  <span role="button" class="btn btn-sm btn-outline-dark" id="btnCreateComment" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalCreate">
+                    Agregar Nuevo Comentario
+                  </span>
+
+                </div>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+          <div class="text-center">
+            <a href="{{url_for('reservas.update_user',id=reservation.id)}}"
+              class="btn btn-outline-dark btn-block mb-4">Actualizar Reserva</a>
+          </div>
+
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal Create Comentario -->
+<div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Comentario para la reserva {{reservation.id}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="formCreateCommentModal" action="{{url_for('reservas.create_cooment_user',id=reservation.id)}}"
+        method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="modal-body">
+
+
+          <div class="form-outline mb-4 ">
+            <label class="form-label" for="date_end">Descripción</label>
+            <input class="form-control" type="text" required name="description">
+
+
+          </div>
+
+          <div class="form-outline mb-4 ">
+            <label class="form-label" for="date_end">Calificación de 1 a 5</label>
+            <input class="form-control" type="number" min="1" max="5" required name="rating">
+
+          </div>
+
+
+
+
+        </div>
+        <div class="modal-footer">
+          <span role="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</span>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!-- Modal Edit Comentario -->
+<div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Comentario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form  action="{{url_for('reservas.edit_coment_user',id=reservation.id)}}"
+        method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <div class="modal-body">
+
+          <input type="hidden" name="idComment" id="idCommentEdit" value="">
+
+
+          <div class="form-outline mb-4 ">
+            <label class="form-label" for="date_end">Descripción</label>
+            <input class="form-control" type="text" id="descriptionEditComment" required name="description">
+
+
+          </div>
+
+          <div class="form-outline mb-4 ">
+            <label class="form-label" for="date_end">Calificación de 1 a 5</label>
+            <input class="form-control" type="number" min="1" max="5" required name="rating" id="ratingEditComment">
+
+          </div>
+
+
+
+
+        </div>
+        <div class="modal-footer">
+          <span role="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</span>
+          <button type="submit" class="btn btn-primary">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal Delete -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Comentario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Confirma que desea Eliminar este Comentario <span id="idCommentspan"></span>
+      </div>
+      <div class="modal-footer">
+        <form  action="{{url_for('reservas.delete_coment_user',id=reservation.id)}}"
+        method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="idComment" id="idCommentdelete" value="">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Eliminar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block scriptExta %}
+
+<script>
+
+  $('.btnEditComment').on('click', function (e) {
+
+   
+    
+    idComment = $(this).data().idcomment
+    des = $(this).data().description
+    rat = $(this).data().rating
+   
+    $('#idCommentEdit').val(idComment)
+    $('#descriptionEditComment').val(des)
+    $('#ratingEditComment').val(rat)
+
+
+  })
+
+  $('.btnDeleteComment').on('click', function (e) {
+
+    idComment = $(this).data().idcomment
+    $('#idCommentdelete').val(idComment)
+    $('#idCommentspan').text(idComment)
+    
+
+  })
+
+</script>
+
+{% endblock%}

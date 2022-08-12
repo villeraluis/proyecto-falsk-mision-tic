@@ -36,7 +36,7 @@
               <td>{{reservation.date_to}}</td>
               <td>{{reservation.status}}</td>
               <td>
-                <a href="show_user.html" class="btn btn-sm btn-primary" title="ver detalles">
+                <a href="{{url_for('reservas.show_user',id=reservation.id)}}" class="btn btn-sm btn-primary" title="ver detalles">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
                     viewBox="0 0 16 16">
                     <path
@@ -150,7 +150,6 @@
 {% block scriptExta %}
 
 <script>
-
 
   $('.btnCancelReserva').on('click', function (e) {
 
