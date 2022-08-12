@@ -11,11 +11,12 @@ from app import login_manager
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-  
-  
-  
-users = Blueprint("users", __name__)
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    return redirect(url_for('users.login_user'))
+   
+users = Blueprint("users", __name__)
 
 @users.route('/')
 def index():
