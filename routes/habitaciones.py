@@ -91,6 +91,7 @@ def disable(id):
 
 @habitaciones.route('/user')
 @login_required
+@userMiddleware
 def index_user():
     today = date.today() 
     rooms= Room.query.all()

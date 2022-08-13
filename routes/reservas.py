@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from middlewares.routeMiddleware import adminMiddleware
+from middlewares.routeMiddleware import adminMiddleware,userMiddleware
 from models.comment import Comment
 from models.reservation import Reservation
 from flask_login import login_user as login_flask, current_user, logout_user, login_required
@@ -115,6 +115,7 @@ def delete_admin(id):
 
 @reservas.route('/user')
 @login_required
+@userMiddleware
 def index_user():  
     reservations = Reservation.query.filter(Reservation.user_id== current_user.id_number).all()
     labelCurrent='Mis Reservas'
@@ -124,6 +125,7 @@ def index_user():
 @reservas.route("/crear/<idh>", methods=['GET'])      
 @reservas.route('/crear', methods=['GET','POST'])
 @login_required
+@userMiddleware
 def create_user(idh=None):
     form = ReservationFormUser()
        
@@ -158,6 +160,7 @@ def create_user(idh=None):
 
 @reservas.route("/actualizar/<id>", methods=["GET", "POST"])
 @login_required
+@userMiddleware
 def update_user(id):
     reservation = Reservation.query.get(id)
     form = ReservationFormUser(obj=reservation)
@@ -188,6 +191,7 @@ def update_user(id):
 
 @reservas.route("/cancelar/<id>", methods=["GET"])
 @login_required
+@userMiddleware
 def cancel_user(id):
     reservation = Reservation.query.get(id) 
      
@@ -200,6 +204,7 @@ def cancel_user(id):
 
 @reservas.route('/detalles_reserva/<id>',methods=['GET'])
 @login_required
+@userMiddleware
 def show_user(id):
     reservation = Reservation.query.get(id) 
     comments= Comment.query.filter(Comment.reservation_id==id).all() 
@@ -210,6 +215,7 @@ def show_user(id):
 
 @reservas.route('/crear_comentario/<id>', methods=['GET','POST'])
 @login_required
+@userMiddleware
 def create_cooment_user(id):
     reservation_id=id
     if request.method == 'POST':
@@ -233,6 +239,7 @@ def create_cooment_user(id):
 
 @reservas.route('/edidar_comentario/<id>', methods=['GET','POST'])
 @login_required
+@userMiddleware
 def edit_coment_user(id):
     reservation_id=id
     if request.method == 'POST':
@@ -255,6 +262,7 @@ def edit_coment_user(id):
     
 @reservas.route("/borrar_comentario/<id>", methods=["GET",'POST'])
 @login_required
+@userMiddleware
 def delete_coment_user(id):
     if request.method == 'POST':
         comment = Comment.query.get(request.form['idComment']) 
