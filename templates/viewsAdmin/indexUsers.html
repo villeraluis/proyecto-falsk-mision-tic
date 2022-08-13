@@ -38,7 +38,7 @@
               <td> {% if user.is_enable %}
                 <b class="text-success">Habilitado</b>
                 {% else %}
-                <b class="text-danger">Desabilitado</b>
+                <b class="text-danger">Deshabilitado</b>
                 {% endif %}
               </td>
 
@@ -101,15 +101,15 @@
       <form id="formDeleteModal" action="" method="GET">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Desabilitar Usuario</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Deshabilitar Usuario</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Confirma que desea desabilitar el usuario <b id="number"></b>
+          Confirma que desea deshabilitar el usuario <b id="number"></b>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Desabiltar</button>
+          <button type="submit" class="btn btn-primary">Deshabiltar</button>
         </div>
 
       </form>
