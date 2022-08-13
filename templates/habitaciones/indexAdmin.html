@@ -19,8 +19,8 @@
           <thead>
             <tr>
               <th scope="col">Numero</th>
-              <th scope="col">estado</th>
-              <th scope="col">Proxima Reserva</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Próxima Reserva</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -33,7 +33,7 @@
                 {% if room.is_enable %}
                     <b class="text-success">Habilitada</b>
                 {% else %}
-                    <b class="text-danger">Desabilitada</b>
+                    <b class="text-danger">Deshabilitada</b>
                 {% endif %}
                 
 
@@ -113,15 +113,15 @@
       <form id="formDeleteModal" action="" method="GET">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Desabiltar Habitación</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Deshabiltar Habitación</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Confirma que desea desabilitar la Habitación <b id="numberHabitacion"></b>
+        Confirma que desea deshabilitar la Habitación <b id="numberHabitacion"></b>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Desabilitar</button>
+        <button type="submit" class="btn btn-primary">Deshabilitar</button>
       </div>
     
       </form>
