@@ -64,10 +64,16 @@ def register_user():
         date_birth = form.date_birth.data
         user_name=form.user_name.data
         pasword=form.pasword.data
-        role_id=2
+        role_id=3
         
         if User.query.filter_by(user_name=user_name).first():
             print ("el nombre de usuario ya se uso antes")
+            
+        if User.query.filter_by(id_number=id_number).first():
+            print ("el numero de usuario ya se encuentra registrado")
+            
+        if User.query.filter_by(email=email).first():
+            print ("el email del usuario ya se encuentra registrado")
         else:
             new_user = User()
             new_user.id_number=id_number
